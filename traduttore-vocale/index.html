@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PiccoleApp - App Android gratuite e senza pubblicità</title>
+  <meta name="description" content="Traduttore Vocale per Android: traduce voce e testo in 26 lingue e aiuta due persone a comunicare parlando ognuna nella propria lingua." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --border: #e2e0d8;
+      --text: #1a1916;
+      --muted: #6f6d66;
+      --accent: #2d6a4f;
+      --accent-dark: #24563f;
+      --accent-light: #e8f4ee;
+      --accent-text: #1b4332;
+      --info-light: #e8f0fb;
+      --info-text: #1e3a6e;
+      --warning-light: #fff7df;
+      --warning-text: #65420a;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 10px 30px rgba(28, 34, 30, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    nav {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-inner {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 0 18px;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 22px 16px 64px;
+    }
+
+    .hero,
+    .app-card,
+    .content-section,
+    .install-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 26px 20px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-text);
+      background: var(--accent-light);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 9vw, 52px);
+      line-height: 1.05;
+      letter-spacing: 0;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: 23px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 17px;
+      line-height: 1.25;
+      letter-spacing: 0;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 720px;
+      margin-bottom: 20px;
+    }
+
+    .hero-actions {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      padding: 14px 18px;
+      font-family: 'DM Sans', Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+      width: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-download {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-download:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg);
+    }
+
+    .download-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .pillole {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pillola {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent-light);
+      border-radius: var(--radius-md);
+      padding: 11px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-text);
+    }
+
+    .pillola.info {
+      background: var(--info-light);
+      color: var(--info-text);
+    }
+
+    .pillola .ico {
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 24px 2px 12px;
+    }
+
+    .app-card {
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .app-head {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .app-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+      flex-shrink: 0;
+    }
+
+    .app-name {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.15;
+      margin: 0 0 4px;
+    }
+
+    .app-platform {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .app-description {
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .tag-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .tag-free {
+      background: var(--accent-light);
+      color: var(--accent-text);
+    }
+
+    .tag-nopub {
+      background: var(--info-light);
+      color: var(--info-text);
+    }
+
+    .tag-warning {
+      background: var(--warning-light);
+      color: var(--warning-text);
+    }
+
+    .content-section,
+    .install-section {
+      padding: 22px 20px;
+      margin-bottom: 18px;
+    }
+
+    .content-section p:last-child,
+    .install-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .language-list {
+      color: var(--muted);
+    }
+
+    .install-intro {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .steps {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 15px;
+    }
+
+    .step-n {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .install-note {
+      background: var(--accent-light);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-size: 14px;
+      color: var(--accent-text);
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .support-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .support-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer p {
+      font-size: 13px;
+      margin: 0;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (min-width: 640px) {
+      main {
+        padding: 38px 20px 80px;
+      }
+
+      .hero,
+      .app-card,
+      .content-section,
+      .install-section {
+        padding: 32px;
+      }
+
+      .hero-actions {
+        grid-template-columns: minmax(260px, 340px) minmax(180px, 220px);
+        align-items: center;
+      }
+
+      .pillole {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .tag-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav-inner {
+        padding: 0 14px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+        padding: 6px 7px;
+      }
+
+      main {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .hero,
+      .app-card,
+      .content-section,
+      .install-section {
+        border-radius: var(--radius-md);
+      }
+
+      .tag-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../" class="logo">Piccole<span>App</span></a>
+    <div class="nav-links">
+      <a href="#app">App</a>
+      <a href="#installa">Installazione</a>
+      <a href="#contatti">Contatti</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Android · versione 1.2</div>
+    <h1>Traduttore Vocale</h1>
+    <p class="lead">Traduci voce e testo in 26 lingue. Aiuta due persone a comunicare parlando ognuna nella propria lingua.</p>
+    <div class="hero-actions">
+      <a href="https://github.com/piccoleapp-agozx/piccoleapp-agozx.github.io/releases/download/v1.2/Traduttore_Vocale_v1.2.apk" class="btn btn-download">Scarica Traduttore Vocale</a>
+      <a href="#installa" class="btn btn-outline">Come installare</a>
+    </div>
+    <p class="download-note">File APK per Android · v1.2 · download da GitHub</p>
+    <div class="pillole">
+      <div class="pillola"><span class="ico">🌍</span> 26 lingue</div>
+      <div class="pillola"><span class="ico">🚫</span> Senza pubblicità</div>
+      <div class="pillola"><span class="ico">👤</span> Nessun account</div>
+      <div class="pillola info"><span class="ico">🎙️</span> Voce e testo</div>
+      <div class="pillola info"><span class="ico">🎓</span> Utile per studenti</div>
+      <div class="pillola info"><span class="ico">0€</span> Gratis</div>
+    </div>
+  </section>
+
+  <section id="app">
+    <p class="section-label">App da scaricare</p>
+    <div class="app-card">
+      <div class="app-head">
+        <div class="app-icon">🎙️</div>
+        <div>
+          <p class="app-name">Traduttore Vocale</p>
+          <p class="app-platform">Android · v1.2 · 26 lingue</p>
+        </div>
+      </div>
+      <p class="app-description">Traduttore Vocale è un'app Android semplice e immediata che traduce voce e testo in <strong>26 lingue</strong>.</p>
+      <p class="app-description">Aiuta due persone che parlano lingue diverse a comunicare senza difficoltà: una parla nella propria lingua, l'altra <strong>legge o ascolta</strong> la traduzione e risponde nella sua.</p>
+      <div class="tag-list">
+        <span class="tag tag-free">Gratis</span>
+        <span class="tag tag-nopub">No pubblicità</span>
+        <span class="tag tag-free">Nessun account</span>
+        <span class="tag tag-warning">APK Android</span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://github.com/piccoleapp-agozx/piccoleapp-agozx.github.io/releases/download/v1.2/Traduttore_Vocale_v1.2.apk" class="btn btn-download">Scarica Traduttore Vocale</a>
+        <a href="../Recensione_TraduttoreVocale.html" class="btn btn-outline">Scopri di più</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>Cosa fa</h2>
+    <p>Traduttore Vocale è un'app Android semplice e immediata che traduce voce e testo in <strong>26 lingue</strong>.</p>
+    <p>Aiuta due persone che parlano lingue diverse a comunicare senza difficoltà: una parla nella propria lingua, l'altra <strong>legge o ascolta</strong> la traduzione e risponde nella sua.</p>
+    <p>È pensata anche per <strong>studenti e ragazzi</strong> che vogliono imparare nuove lingue: permette di esercitarsi con parole, frasi e pronuncia, ascoltare come suonano le lingue straniere e migliorare la comprensione in modo pratico, quotidiano e senza pressione.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>Lingue disponibili</h2>
+    <p class="language-list">Italiano, Inglese, Francese, Spagnolo, Tedesco, Portoghese, Cinese semplificato, Olandese, Rumeno, Polacco, Ceco, Greco, Ungherese, Svedese, Danese, Albanese, Arabo, Ucraino, Russo, Bengalese, Hindi, Urdu, Tagalog, Turco, Tamil, Finlandese.</p>
+  </section>
+
+  <section class="install-section" id="installa">
+    <h2>Come installare l'app</h2>
+    <p class="install-intro">Traduttore Vocale si scarica come file APK perché non viene distribuita tramite Play Store.</p>
+    <ol class="steps">
+      <li><span class="step-n">1</span><span>Tocca <strong>Scarica Traduttore Vocale</strong>.</span></li>
+      <li><span class="step-n">2</span><span>Quando il download finisce, tocca la notifica <strong>Download completato</strong>.</span></li>
+      <li><span class="step-n">3</span><span>Se non trovi la notifica, apri <strong>File</strong>, <strong>Archivio</strong> o <strong>Gestione file</strong>.</span></li>
+      <li><span class="step-n">4</span><span>Vai nella cartella <strong>Download</strong> e tocca il file scaricato.</span></li>
+      <li><span class="step-n">5</span><span>Se Android lo chiede, consenti l'installazione da questa fonte.</span></li>
+      <li><span class="step-n">6</span><span>Torna indietro e tocca <strong>Installa</strong>.</span></li>
+    </ol>
+    <div class="install-note">
+      <span>💡</span>
+      <span>Il messaggio <strong>"app da fonte sconosciuta"</strong> è normale quando installi un'app fuori dal Play Store. Traduttore Vocale viene distribuita direttamente da PiccoleApp tramite GitHub.</span>
+    </div>
+    <div class="install-note" style="margin-top:12px; background:var(--warning-light); color:var(--warning-text);">
+      <span>🛡️</span>
+      <span>Su alcuni telefoni Android può comparire l'avviso <strong>"Limitato dalla protezione avanzata"</strong>. È un controllo di sicurezza che Android mostra quando si installa un'app scaricata fuori dal Play Store. Se vuoi interrompere l'installazione, tocca <strong>OK</strong>. Se invece vuoi continuare, tocca <strong>Impostazioni</strong> e consenti l'installazione per questa app. Prima di procedere controlla che il file sia stato scaricato da questa pagina PiccoleApp o dalla release GitHub dell'account <strong>piccoleapp-agozx</strong>.</span>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>PiccoleApp</h2>
+    <p>PiccoleApp è un progetto indipendente di Agostino Tallarico. Le app sono pensate per essere semplici, gratuite, senza pubblicità e senza registrazioni obbligatorie.</p>
+  </section>
+
+  <section class="content-section" id="contatti">
+    <h2>Contatti e privacy</h2>
+    <p>Per supporto, feedback e richieste privacy puoi scrivere a <a href="mailto:agovarie@gmail.com">agovarie@gmail.com</a>.</p>
+    <p>Leggi la <a href="../privacy-traduttore-vocale.html">Privacy Policy di Traduttore Vocale</a>.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 PiccoleApp · Progetto indipendente di <a href="https://piccoleapp-agozx.github.io">Agostino Tallarico</a> · <a href="mailto:agovarie@gmail.com">agovarie@gmail.com</a> · <a href="../privacy-traduttore-vocale.html">Privacy</a></p>
+</footer>
+
+</body>
+</html>
+
+
+
